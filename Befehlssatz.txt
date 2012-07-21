@@ -1,0 +1,25 @@
+;Format: 
+;[Vorschlag für ASM Befehlbezeichnung - ] Befehlsbeschreibung [ : Parameter ]
+
+MCU_ROM - Setze MCU Modus ROM
+MCU_RAM - Setze MCU Modus RAM
+MCU_DEV - Setze MCU Modus dev
+MCU_A - Setze MCU Modus A & 11b
+NOP - Tue nichts
+LDC - Lade Konstante in A : Konstante
+LD - Lies von MCU in A : Adresse
+ST - Schreib A in MCU : Adresse
+ADD - Addiere Register und A und schreibe Ergebnis in A : Registernummer
+SUB - Subtrahiere Register und A und schreibe Ergebnis in A : Registernummer
+NOT - Bitweises A in A schreiben
+AND - Bitweises AND von Register und A in A schreiben : Registernummer
+OR - Bitweises OR von Register und A in A schreiben : Registernummer
+XOR - Bitweises XOR von Register und A in A schreiben : Registernummer
+SHL - Shifte A links und schreibe Ergebnis in A, neue Bits sind gleich 0
+SHR - Shifte A rechts und schreibe Ergebnis in A, neue Bits sind gleich 0
+JMP - Schreibe Parameter in PC, hängt dann auch von MCU Modus ab : Adresse von nächsten Befehl
+JMPA - Schreibe Wert von A in PC, hängt dann auch von MCU Modus ab
+JMP_C - Wenn C Flag gesetzt, schreibe Wert von A in PC, hängt dann auch von MCU Modus ab : Adresse von nächsten Befehl
+JMPA_C - Wenn C Flag gesetzt, Schreibe Wert von A in PC, hängt dann auch von MCU Modus ab
+JMP_Z - Wenn Z Flag gesetzt, schreibe Wert von A in PC, hängt dann auch von MCU Modus ab : Adresse von nächsten Befehl
+JMPA_Z - Wenn Z Flag gesetzt, Schreibe Wert von A in PC, hängt dann auch von MCU Modus ab
