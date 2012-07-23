@@ -2,12 +2,14 @@
 ;[Vorschlag für ASM Befehlbezeichnung - ] Befehlsbeschreibung [ : Parameter ]
 
 NOP - Tue nichts
-<Load Store Befehle> 5 Stück 
+<Load Store Befehle> 7 Stück 
 LDC8L - Lade Konstante in Lowbyte von A : 8 Bit Konstante
 LDC8H - Lade Konstante in Highbyte von A : 8 Bit Konstante
 LDC16 - Lade Konstante in A : 16 Bit Konstante
 LD - Lies von MCU in A : 16 Bit Adresse
 ST - Schreib A in MCU : 16 Bit Adresse
+IN - Liest 16 Bit Wert von Gerät welches im Parameter spezifiert wird in A: 16 Bit Gerätenummer
+OUT - Schreibt 16 Bit Wert von A in Gerät welches im Parameter spezifiert wird: 16 Bit Gerätenummer
 <ALU Befehle> 9 Stück (mit 4 Bit codierbar)
 ADD - Addiere Register und A und schreibe Ergebnis in A : 8 Bit Registernummer
 SUB - Subtrahiere Register und A und schreibe Ergebnis in A : 8 Bit Registernummer
@@ -25,28 +27,35 @@ JMP_C - Wenn C Flag gesetzt, Schreibe Parameter in PC : 16 Bit Adresse von nächs
 JMPA_C - Wenn C Flag gesetzt, Schreibe Wert von A in PC
 JMP_Z - Wenn Z Flag gesetzt, Schreibe Parameter in PC : 16 Bit Adresse von nächsten Befehl
 JMPA_Z - Wenn Z Flag gesetzt, Schreibe Wert von A in PC
+<Kontroll Befehle> 1 Stück
+RESET
 
-Jump, Load Store Befehle und NOP : 12 Stück (mit 4 Bit codierbar)
+
+Jump, Load Store Befehle und NOP : 15 Stück (mit 4 Bit codierbar)
 
 Der OP Code wird in einem Byte mit 8 Bit gespeichert. Dieses Byte sprechen wir mit op an.
 Niederwertigstes Bit (op0) ist für obige Befehle immer 0.
 Wenn das niederwertigste Bit 1 ist, dann soll das heißen, dass die anderen 7 Bit Befehle eines erweiterten Befehlssatzes kodieren. 
 Das soll ermöglichen, den Befehlssatz später noch zu erweitern.
-op1 steht dafür, ob ein ALU Befehl(op1=1), oder ein Jump, Load Store Befehl oder NOP kodiert ist. 
+op1 steht dafür, ob ein ALU Befehl(op1=1), oder einer anderen kodiert ist. 
 Der hintere Fall tritt ein, wenn op1 = 0.
 Die vier nächsten Bit (op2-op5) kodieren nun den Befehl.
 Wenn es ein ALU Befehl ist, werden diese 4 Bit an die ALU als Befehl weitergeleitet.
 Ansonsten:
 Befehl	: Durch op2-op5 kodierte Binärzahl:
 NOP		: 0
-LDC8L	: 1
-LDC8H	: 2
-LDC16	: 3
-LD		: 4
-ST		: 5
-JMP		: 6
-JMPA	: 7
-JMP_C	: 8
-JMPA_C	: 9
-JMP_Z	: 10
-JMPA_Z	: 11
+RESET	: 1
+LDC8L	: 2
+LDC8H	: 3
+LDC16	: 4
+LD		: 5
+ST		: 6
+IN		: 7
+OUT		: 8
+JMP		: 9
+JMPA	: 10
+JMP_C	: 11
+JMPA_C	: 12
+JMP_Z	: 13
+JMPA_Z	: 14
+
