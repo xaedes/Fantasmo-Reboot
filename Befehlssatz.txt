@@ -1,18 +1,20 @@
 ;Format: 
-;[Vorschlag für ASM Befehlbezeichnung - ] Befehlsbeschreibung [ : Parameter ]
+;[Vorschlag für Mnemonics - ] Befehlsbeschreibung [ : Parameter ]
 
 NOP - Tue nichts
-<Load Store Befehle> 7 Stück 
-LDC8L - Lade Konstante in Lowbyte von A : 8 Bit Konstante
-LDC8H - Lade Konstante in Highbyte von A : 8 Bit Konstante
-LDC16 - Lade Konstante in A : 16 Bit Konstante
-LD - Lies von MCU in A : 16 Bit Adresse
-ST - Schreib A in MCU : 16 Bit Adresse
-IN - Liest 16 Bit Wert von Gerät welches im Parameter spezifiert wird in A: 16 Bit Gerätenummer
-OUT - Schreibt 16 Bit Wert von A in Gerät welches im Parameter spezifiert wird: 16 Bit Gerätenummer
+<Load Store Befehle> 9 Stück 
+LDC - Lade Konstante in Register : 8 Bit Registernummer, 16 Bit Konstante
+LD - Lies von MCU in Register : 8 Bit Registernummer, 16 Bit Adresse
+ST - Schreib Register in MCU : 8 Bit Registernummer, 16 Bit Adresse
+ILD - Lies von Adresse, die im (zweiten) Register steht, vom MCU in (erstes) Register : 8 Bit Registernummer, 8 Bit Registernummer
+IST - Schreib (erstes) Register in Adresse welche im (zweiten) Register steht in MCU : 8 Bit Registernummer, 8 Bit Registernummer
+IN - Liest 16 Bit Wert von Gerät welches im Parameter spezifiert wird in Register: 8 Bit Registernummer, 16 Bit Gerätenummer
+OUT - Schreibt 16 Bit Wert von Register in Gerät welches im Parameter spezifiert wird: 8 Bit Registernummer, 16 Bit Gerätenummer
+IIN - Liest 16 Bit Wert von Gerät welches durch Inhalt des (zweiten) Registers spezifiert wird in Register: 8 Bit Registernummer, 8 Bit Registernummer
+IOUT - Schreibt 16 Bit Wert von Register in Gerät welches durch Inhalt des (zweiten) Registers spezifiert wird: 8 Bit Registernummer, 8 Bit Registernummer
 <ALU Befehle> 9 Stück (mit 4 Bit codierbar)
 ADD - Addiere Register und A und schreibe Ergebnis in A : 8 Bit Registernummer
-SUB - Subtrahiere Register und A und schreibe Ergebnis in A : 8 Bit Registernummer
+SUB - Subtrahiere Register von A und schreibe Ergebnis in A : 8 Bit Registernummer
 NOT - Bitweises A in A schreiben
 AND - Bitweises AND von Register und A in A schreiben : 8 Bit Registernummer
 OR - Bitweises OR von Register und A in A schreiben : 8 Bit Registernummer
@@ -22,27 +24,33 @@ SHR - Shifte A rechts und schreibe Ergebnis in A, neue Bits sind gleich 0
 CMP - Subtrahiere Register von A und behalte nur die ALU-Flags die dadurch gesetzt werden : 8 Bit Registernummer
 <Jump Befehle> 6 Stück 
 JMP - Schreibe Parameter in PC : 16 Bit Adresse von nächsten Befehl
-JMPA - Schreibe Wert von A in PC
+JMPR - Schreibe Wert von Register in PC : 8 Bit Registernummer
 JMP_C - Wenn C Flag gesetzt, Schreibe Parameter in PC : 16 Bit Adresse von nächsten Befehl
-JMPA_C - Wenn C Flag gesetzt, Schreibe Wert von A in PC
+JMPR_C - Wenn C Flag gesetzt, Schreibe Wert von Register in PC : 8 Bit Registernummer
 JMP_Z - Wenn Z Flag gesetzt, Schreibe Parameter in PC : 16 Bit Adresse von nächsten Befehl
-JMPA_Z - Wenn Z Flag gesetzt, Schreibe Wert von A in PC
+JMPR_Z - Wenn Z Flag gesetzt, Schreibe Wert von Register in PC : 8 Bit Registernummer
 <Kontroll Befehle> 1 Stück
 RESET
 
 
-Jump, Load Store Befehle und NOP : 15 Stück (mit 4 Bit codierbar)
+Jump, Load Store Befehle und NOP : 17 Stück (mit 5 Bit codierbar)
 
-Der OP Code wird in einem Byte mit 8 Bit gespeichert. Dieses Byte sprechen wir mit op an.
+Der OP Code wird in einem Byte mit 8 Bit gespeichert. 
+Da immer 16 Bit eingelesen werden sprechen wir dieses eingelesene Wort mit op an.
+Das höhererwertige Byte von op beinhaltet bereits Parameter für den Befehl, wenn es welche gibt.
+Wenn es keine gibt, fängt der nächste Befehl an der Adresse an, die das höherwertige Byte dieses Befehles beinhaltet hat.
 Niederwertigstes Bit (op0) ist für obige Befehle immer 0.
 Wenn das niederwertigste Bit 1 ist, dann soll das heißen, dass die anderen 7 Bit Befehle eines erweiterten Befehlssatzes kodieren. 
 Das soll ermöglichen, den Befehlssatz später noch zu erweitern.
 op1 steht dafür, ob ein ALU Befehl(op1=1), oder einer anderen kodiert ist. 
 Der hintere Fall tritt ein, wenn op1 = 0.
-Die vier nächsten Bit (op2-op5) kodieren nun den Befehl.
-Wenn es ein ALU Befehl ist, werden diese 4 Bit an die ALU als Befehl weitergeleitet.
+Wenn es ein ALU Befehl ist, werden die vier nächsten Bit (op2-op5) an die ALU als Befehl weitergeleitet.
 Ansonsten:
-Befehl	: Durch op2-op5 kodierte Binärzahl:
+Die fünf Bit (op2-op6) kodieren nun den Befehl.
+
+TODO : folgende Befehlsliste aktualisieren
+
+Befehl	: Durch op2-op6 kodierte Binärzahl:
 NOP		: 0
 RESET	: 1
 LDC8L	: 2
