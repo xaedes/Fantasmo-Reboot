@@ -2,6 +2,7 @@
 ;[Vorschlag für Mnemonics - ] Befehlsbeschreibung [ : Parameter ]
 
 NOP - Tue nichts
+
 <Load Store Befehle> 9 Stück 
 LDC - Lade Konstante in Register : 8 Bit Registernummer, 16 Bit Konstante
 LD - Lies von MCU in Register : 8 Bit Registernummer, 16 Bit Adresse
@@ -12,6 +13,7 @@ IN - Liest 16 Bit Wert von Gerät welches im Parameter spezifiert wird in Registe
 OUT - Schreibt 16 Bit Wert von Register in Gerät welches im Parameter spezifiert wird: 8 Bit Registernummer, 16 Bit Gerätenummer
 IIN - Liest 16 Bit Wert von Gerät welches durch Inhalt des (zweiten) Registers spezifiert wird in Register: 8 Bit Registernummer, 8 Bit Registernummer
 IOUT - Schreibt 16 Bit Wert von Register in Gerät welches durch Inhalt des (zweiten) Registers spezifiert wird: 8 Bit Registernummer, 8 Bit Registernummer
+
 <ALU Befehle> 9 Stück (mit 4 Bit codierbar)
 ADD - Addiere Register und A und schreibe Ergebnis in A : 8 Bit Registernummer
 SUB - Subtrahiere Register von A und schreibe Ergebnis in A : 8 Bit Registernummer
@@ -22,6 +24,7 @@ XOR - Bitweises XOR von Register und A in A schreiben : 8 Bit Registernummer
 SHL - Shifte A links und schreibe Ergebnis in A, neue Bits sind gleich 0
 SHR - Shifte A rechts und schreibe Ergebnis in A, neue Bits sind gleich 0
 CMP - Subtrahiere Register von A und behalte nur die ALU-Flags die dadurch gesetzt werden : 8 Bit Registernummer
+
 <Jump Befehle> 6 Stück 
 JMP - Schreibe Parameter in PC : 16 Bit Adresse von nächsten Befehl
 JMPR - Schreibe Wert von Register in PC : 8 Bit Registernummer
@@ -29,6 +32,7 @@ JMP_C - Wenn C Flag gesetzt, Schreibe Parameter in PC : 16 Bit Adresse von nächs
 JMPR_C - Wenn C Flag gesetzt, Schreibe Wert von Register in PC : 8 Bit Registernummer
 JMP_Z - Wenn Z Flag gesetzt, Schreibe Parameter in PC : 16 Bit Adresse von nächsten Befehl
 JMPR_Z - Wenn Z Flag gesetzt, Schreibe Wert von Register in PC : 8 Bit Registernummer
+
 <Kontroll Befehle> 1 Stück
 RESET
 
