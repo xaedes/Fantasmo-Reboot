@@ -1,0 +1,28 @@
+ALU1 <- IR2
+ALU1 <- R
+ALU2 <- (2^15)
+ALU2 <- R
+ALUO <- (SUB)
+ALUO <- IR1[1-4]
+C ? PC <- ALU
+C ? PC <- IR2
+C ? PC <- R
+CC <- IR1[8-15]
+DVN <- IR2
+DVN <- R
+DVS <- R
+IR2 <- MD
+MA <- IR2
+MA <- PC
+MA <- R
+MIP <- 0
+MS <- R
+PC <- 0
+PC <- PC + 1
+PC <- PC + 2
+RN <- IR1[8-15]
+RN <- IR2[0-7]
+RS <- ALU
+RS <- DV
+RS <- IR2
+RS <- MD

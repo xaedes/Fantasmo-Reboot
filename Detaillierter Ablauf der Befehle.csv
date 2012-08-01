@@ -1,0 +1,25 @@
+;Operanden holen;;;;Ausführung;;;;;;;
+NOP;;;;;;;;;;;;MIP <- 0
+EXT;;;;;;;;;;;;MIP <- 0
+RESET;PC <- 0;;;;;;;;;;;MIP <- 0
+LDC;PC <- PC + 1;MA <- PC;PC <- PC + 2;IR2 <- MD;RN <- IR1[8-15];RS <- IR2;;;;;;MIP <- 0
+LD;PC <- PC + 1;MA <- PC;PC <- PC + 2;IR2 <- MD;RN <- IR1[8-15];MA <- IR2;RS <- MD;;;;;MIP <- 0
+ST;PC <- PC + 1;MA <- PC;PC <- PC + 2;IR2 <- MD;RN <- IR1[8-15];MA <- IR2;MS <- R;;;;;MIP <- 0
+ILD;PC <- PC + 1;MA <- PC;PC <- PC + 1;IR2 <- MD;RN <- IR1[8-15];RN <- IR2[0-7];MA <- R;RN <- IR1[8-15];RS <- MD;;;MIP <- 0
+IST;PC <- PC + 1;MA <- PC;PC <- PC + 1;IR2 <- MD;RN <- IR1[8-15];RN <- IR2[0-7];MA <- R;RN <- IR1[8-15];MS <- R;;;MIP <- 0
+IN;PC <- PC + 1;MA <- PC;PC <- PC + 2;IR2 <- MD;RN <- IR1[8-15];DVN <- IR2;RS <- DV;;;;;MIP <- 0
+OUT;PC <- PC + 1;MA <- PC;PC <- PC + 2;IR2 <- MD;RN <- IR1[8-15];DVN <- IR2;DVS <- R;;;;;MIP <- 0
+IIN;PC <- PC + 1;MA <- PC;PC <- PC + 1;IR2 <- MD;RN <- IR1[8-15];RN <- IR2[0-7];DVN <- R;RN <- IR1[8-15];RS <- DV;;;MIP <- 0
+IOUT;PC <- PC + 1;MA <- PC;PC <- PC + 1;IR2 <- MD;RN <- IR1[8-15];RN <- IR2[0-7];DVN <- R;RN <- IR1[8-15];DVS <- R;;;MIP <- 0
+JMP;PC <- PC + 1;MA <- PC;PC <- PC + 2;IR2 <- MD;CC <- IR1[8-15];C ? PC <- IR2;;;;;;MIP <- 0
+RJMP;PC <- PC + 1;MA <- PC;PC <- PC + 1;IR2 <- MD;CC <- IR1[8-15];ALUO <- (SUB);ALU1 <- IR2;ALU2 <- (2^15);C ? PC <- ALU;;;MIP <- 0
+IJMP;PC <- PC + 1;MA <- PC;PC <- PC + 2;IR2 <- MD;CC <- IR1[8-15];RN <- IR2[0-7];C ? PC <- R;;;;;MIP <- 0
+ADD;PC <- PC + 1;MA <- PC;PC <- PC + 2;IR2 <- MD;ALUO <- IR1[1-4];RN <- IR2[0-7];ALU2 <- R;RN <- IR1[8-15];ALU1 <- R;RS <- ALU;;MIP <- 0
+SUB;PC <- PC + 1;MA <- PC;PC <- PC + 2;IR2 <- MD;ALUO <- IR1[1-4];RN <- IR2[0-7];ALU2 <- R;RN <- IR1[8-15];ALU1 <- R;RS <- ALU;;MIP <- 0
+NOT;PC <- PC + 1;MA <- PC;;;ALUO <- IR1[1-4];;;RN <- IR1[8-15];ALU1 <- R;RS <- ALU;;MIP <- 0
+AND;PC <- PC + 1;MA <- PC;PC <- PC + 2;IR2 <- MD;ALUO <- IR1[1-4];RN <- IR2[0-7];ALU2 <- R;RN <- IR1[8-15];ALU1 <- R;RS <- ALU;;MIP <- 0
+OR;PC <- PC + 1;MA <- PC;PC <- PC + 2;IR2 <- MD;ALUO <- IR1[1-4];RN <- IR2[0-7];ALU2 <- R;RN <- IR1[8-15];ALU1 <- R;RS <- ALU;;MIP <- 0
+XOR;PC <- PC + 1;MA <- PC;PC <- PC + 2;IR2 <- MD;ALUO <- IR1[1-4];RN <- IR2[0-7];ALU2 <- R;RN <- IR1[8-15];ALU1 <- R;RS <- ALU;;MIP <- 0
+SHL;PC <- PC + 1;MA <- PC;PC <- PC + 2;IR2 <- MD;ALUO <- IR1[1-4];RN <- IR2[0-7];ALU2 <- R;RN <- IR1[8-15];ALU1 <- R;RS <- ALU;;MIP <- 0
+SHR;PC <- PC + 1;MA <- PC;PC <- PC + 2;IR2 <- MD;ALUO <- IR1[1-4];RN <- IR2[0-7];ALU2 <- R;RN <- IR1[8-15];ALU1 <- R;RS <- ALU;;MIP <- 0
+CMP;PC <- PC + 1;MA <- PC;PC <- PC + 2;IR2 <- MD;ALUO <- IR1[1-4];RN <- IR2[0-7];ALU2 <- R;RN <- IR1[8-15];ALU1 <- R;RS <- ALU;;MIP <- 0
