@@ -28,6 +28,7 @@ XOR - R1 <- R1 XOR R2 : 8 Bit Registernummer, 8 Bit Registernummer
 SHL - R1 <- R1 << R2 (Nullen werden eingeschoben) : 8 Bit Registernummer, 8 Bit Registernummer
 SHR - R1 <- R1 >> R2 (Nullen werden eingeschoben) : 8 Bit Registernummer, 8 Bit Registernummer
 CMP - R1 - R2 berechnen und Ergebnis verwerfen : 8 Bit Registernummer, 8 Bit Registernummer
+LDF - R1 <- ALU Flags : 8 Bit Registernummer
 
 <Jump Befehle> 3 Stück 
 Flags = T(Always), C, Z

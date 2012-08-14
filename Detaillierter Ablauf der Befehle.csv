@@ -25,3 +25,4 @@ XOR;PC <- PC + 1;MA <- PC;PC <- PC + 2;IR2 <- MD;ALUO <- IR1[1-4];RN <- IR2[0-7]
 SHL;PC <- PC + 1;MA <- PC;PC <- PC + 2;IR2 <- MD;ALUO <- IR1[1-4];RN <- IR2[0-7];ALU2 <- R;RN <- IR1[8-15];ALU1 <- R;RS <- ALU;;MIP <- (0)
 SHR;PC <- PC + 1;MA <- PC;PC <- PC + 2;IR2 <- MD;ALUO <- IR1[1-4];RN <- IR2[0-7];ALU2 <- R;RN <- IR1[8-15];ALU1 <- R;RS <- ALU;;MIP <- (0)
 CMP;PC <- PC + 1;MA <- PC;PC <- PC + 2;IR2 <- MD;ALUO <- IR1[1-4];RN <- IR2[0-7];ALU2 <- R;RN <- IR1[8-15];ALU1 <- R;RS <- ALU;;MIP <- (0)
+LDF;PC <- PC + 1;MA <- PC;;;RN <- IR1[8-15];RS <- ALUF;;;;;;MIP <- (0)
