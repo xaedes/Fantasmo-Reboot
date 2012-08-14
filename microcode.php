@@ -52,9 +52,9 @@ php <?php echo basename(__FILE__); ?> [options]
 	$unique_cmds = array();
     foreach( $csv as $cell ) {
         $cmd = array();
-        if( preg_match("#([^\s]+)\s*\?\s*([^\s]+)\s*<-\s*([^\s]+)#",$cell,$matches) > 0) {
+        if( preg_match("#([^\s]+)\s*\?\s*([^\s]+)\s*<-\s*(.+)\s*$#",$cell,$matches) > 0) {
             $cmd = array( "dst" => $matches[2], "src" => $matches[3], "conditional" => $matches[1] );
-        } else if( preg_match("#([^\s]+)\s*<-\s*([^\s]+)#",$cell,$matches) > 0) {
+        } else if( preg_match("#([^\s]+)\s*<-\s*(.+)\s*$#",$cell,$matches) > 0) {
             $cmd = array( "dst" => $matches[1], "src" => $matches[2] );
         } else if( preg_match("#^\s*([A-Z]+)\s*$#",$cell,$matches) > 0 ) {
             $ops[$matches[1]] = true;
@@ -77,7 +77,7 @@ php <?php echo basename(__FILE__); ?> [options]
     $regs = array_keys($regs);
     sort($dsts);
     sort($srcs);
-    sort($ops);
+    // sort($ops);
     sort($regs);
     ksort($unique_cmds);
 	
@@ -163,6 +163,7 @@ php <?php echo basename(__FILE__); ?> [options]
 		$rom["addressBitWidth"] = bits( count($ops) );
 		$rom["dataBitWidth"] = bits( count($cmds) );
 
+		// print_r( $mit );
 		foreach( $ops as $op ) {
 			$rom["data"][] = $mit[$op];
 		}
