@@ -4,6 +4,9 @@
 
 NOP - Tue nichts
 EXT - Erweiterter Befehl, tut bisher nichts
+<Kontroll Befehle> 1 Stück
+RESET
+
 
 <Load Store Befehle> 9 Stück 
 LDC - Lade Konstante in Register : 8 Bit Registernummer, 16 Bit Konstante
@@ -16,19 +19,23 @@ OUT - Schreibt 16 Bit Wert von Register in Gerät welches im Parameter spezifiert
 IIN - Liest 16 Bit Wert von Gerät welches durch Inhalt des (zweiten) Registers spezifiert wird in Register: 8 Bit Registernummer, 8 Bit Registernummer
 IOUT - Schreibt 16 Bit Wert von Register in Gerät welches durch Inhalt des (zweiten) Registers spezifiert wird: 8 Bit Registernummer, 8 Bit Registernummer
 
-<ALU Befehle> 9 Stück (mit 4 Bit codierbar)
-//R1 = Register im ersten Parameter
-//R2 = Register im zweiten Parameter
-ADD - R1 <- R1 + R2 : 8 Bit Registernummer, 8 Bit Registernummer
-SUB - R1 <- R1 - R2 : 8 Bit Registernummer, 8 Bit Registernummer
-NOT - R1 <- NOT R1 : 8 Bit Registernummer
-AND - R1 <- R1 AND R2 : 8 Bit Registernummer, 8 Bit Registernummer
-OR  - R1 <- R1 OR R2 : 8 Bit Registernummer, 8 Bit Registernummer
-XOR - R1 <- R1 XOR R2 : 8 Bit Registernummer, 8 Bit Registernummer
-SHL - R1 <- R1 << R2 (Nullen werden eingeschoben) : 8 Bit Registernummer, 8 Bit Registernummer
-SHR - R1 <- R1 >> R2 (Nullen werden eingeschoben) : 8 Bit Registernummer, 8 Bit Registernummer
-CMP - R1 - R2 berechnen und Ergebnis verwerfen : 8 Bit Registernummer, 8 Bit Registernummer
-LDF - R1 <- ALU Flags : 8 Bit Registernummer
+<ALU Befehle> 4 Stück
+//OP = ALU Operation (8 Bit)
+//R1 = Register im zweiten Parameter (8 Bit)
+//R2 = Register im dritten Parameter (8 Bit)
+ALU1 - R1 <- OP(R1)    : 8 Bit ALU Operation, 8 Bit Registernummer
+ALU2 - R1 <- OP(R1,R2) : 8 Bit ALU Operation, 8 Bit Registernummer, 8 Bit Registernummer
+ALUC - OP(R1,R2)       : 8 Bit ALU Operation, 8 Bit Registernummer, 8 Bit Registernummer
+ALUF - R1 <- ALU Flags : 8 Bit Registernummer
+
+/*
+ALU Operationen:
+Einstellig:  NOT
+Zweistellig: ADD,SUB,NOT,AND,OR,XOR,SHL,SHR,CMP
+Bei SHL und SHR werden Nullen eingeschoben
+
+Bei ALUC wird das Ergebnis berechnet, die Flags entsprechend gesetzt, das Ergebnis dann aber verworfen. 
+*/
 
 <Jump Befehle> 3 Stück 
 Flags = T(Always), C, Z
@@ -36,44 +43,15 @@ JMP - Schreibe Parameter in PC wenn C : 8 Bit Condition Codes, 16 Bit Adresse vo
 RJMP - Schreibe Parameter in PC wenn C : 8 Bit Condition Codes, 16 Bit Adresse von nächsten Befehl relativ zu Adresse: PC(von dieser OP) minus 2^15
 IJMP - Schreibe Wert von Register in PC wenn C : 8 Bit Condition Codes, 8 Bit Registernummer
 
-<Kontroll Befehle> 1 Stück
-RESET
-
 
 Jump, Load Store Befehle und NOP : 15 Stück (mit 5 Bit codierbar)
 
+
 Der OP Code wird in einem Byte mit 8 Bit gespeichert. 
-Da immer 16 Bit eingelesen werden sprechen wir dieses eingelesene Wort mit op an.
+Es werden immer 16 Bit eingelesen.
 Gespeichert wird dieser Wert im Instruction Register 1 (IR1). 
-Solte der Befehl weitere Operanden benötigen, die nicht in IR1 kodiert sind, wird das nächste eingelesene Wort in IR2 gespeichert.
-
-Das höhererwertige Byte von op beinhaltet bereits Parameter für den Befehl, wenn es welche gibt.
-Wenn es keine gibt, fängt der nächste Befehl an der Adresse an, die das höherwertige Byte von op beinhaltet hat.
-op0 steht dafür, ob ein ALU Befehl(op0=1), oder einer der anderen kodiert ist. 
-Der hintere Fall tritt ein, wenn op0 = 0.
-Wenn es ein ALU Befehl ist, werden die vier nächsten Bit (op1-op4) an die ALU als Befehl weitergeleitet.
-Ansonsten:
-Die fünf Bit (op1-op5) kodieren nun den Befehl.
-
-TODO : folgende Befehlsliste aktualisieren
-
-Befehl	: Durch op2-op6 kodierte Binärzahl:
-NOP		: 0
-EXT		: 1
-RESET	: 2
-LDC		: 3
-LD		: 4
-ST		: 5
-ILD		: 6
-IST		: 7
-IN		: 8
-OUT		: 9
-IIN		: 10
-IOUT	: 11
-JMP	    : 12
-RJMP	: 13
-IJMP	: 14
-
+Sollte der Befehl weitere Operanden benötigen, die nicht in IR1 kodiert sind, wird das nächste eingelesene Wort in IR2 gespeichert.
+Ein Befehl umfasst mindest ein eingelesenes Wort.
 
 Komponenten:
 In der Microcode Instruction Table steht für jeden OP Code die Microcode Instruction Startadresse
