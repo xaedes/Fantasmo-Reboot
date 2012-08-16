@@ -18,13 +18,21 @@ php <?php echo basename(__FILE__); ?> [options]
   --write-mid[="mid.rom"]     Write microinstruction destinations rom file
   --write-mis[="mis.rom"]     Write microinstruction sources rom file
   --write-mic[="mic.rom"]     Write microinstruction conditions rom file
+  --write-all                 Writes all above
   --help ; -h                 This help
   
 <?php
     }
     
-    $opts = getopt("hn",array("print-dsts","print-srcs","print-ops","print-regs","print-cmds","print-mc","write-mit::","write-mc::","write-mid::","write-mis::","write-mic::","help"));
+    $opts = getopt("hn",array("print-dsts","print-srcs","print-ops","print-regs","print-cmds","print-mc","write-mit::","write-mc::","write-mid::","write-mis::","write-mic::","write-all","help"));
 
+	if( isset( $opts["write-all"] ) ) {
+		$opts["write-mit"] = false;
+		$opts["write-mc"] = false;
+		$opts["write-mid"] = false;
+		$opts["write-mis"] = false;
+		$opts["write-mic"] = false;
+	}
 
     if( count($opts) == 0 ) {
         usage();
@@ -167,12 +175,13 @@ php <?php echo basename(__FILE__); ?> [options]
 			}
 		}
 		fclose($fh);
+		echo "\n";
 	}
 	
 
 	
     if( isset( $opts["write-mit"] ) ) {
-		//Write microinstruction look up table rom file
+		echo "Write microinstruction look up table rom file\n";
 		
 		//input  : opcodes
 		//output : offset in microcode
@@ -193,7 +202,7 @@ php <?php echo basename(__FILE__); ?> [options]
     }
     
     if( isset( $opts["write-mc"] ) ) {
-		//Write microcode rom file
+		echo "Write microcode rom file\n";
 		
 		//input  : offset in microcode
 		//output : microcode instruction
@@ -215,7 +224,7 @@ php <?php echo basename(__FILE__); ?> [options]
     }
    
     if( isset( $opts["write-mid"] ) ) {
-		//Write microinstruction destinations rom file
+		echo "Write microinstruction destinations rom file\n";
 		
 		//input  : microcode instruction
 		//output : destination register
@@ -236,7 +245,7 @@ php <?php echo basename(__FILE__); ?> [options]
 		
     }
      if( isset( $opts["write-mis"] ) ) {
-		//Write microinstruction sources rom file
+		echo "Write microinstruction sources rom file\n";
 		
 		//input  : microcode instruction
 		//output : source
@@ -258,7 +267,7 @@ php <?php echo basename(__FILE__); ?> [options]
     }
 	
     if( isset( $opts["write-mic"] ) ) {
-		//Write microinstruction conditions rom file
+		echo "Write microinstruction conditions rom file\n";
 		
 		//input  : microcode instruction
 		//output : conditional
