@@ -4,8 +4,9 @@ Fantasmo-Reboot Microcode Utils v0.1
     function usage() {
 ?>
 Usage:
-php <?php echo basename(__FILE__); ?> [options]
+php <?php echo basename(__FILE__); ?> [options] 
 
+   -n                         number items when printing
   --print-dsts                Print all destination registers
   --print-srcs                Print all data sources
   --print-ops                 Print all operation mnemnonics
@@ -22,7 +23,7 @@ php <?php echo basename(__FILE__); ?> [options]
 <?php
     }
     
-    $opts = getopt("h",array("print-dsts","print-srcs","print-ops","print-regs","print-cmds","print-mc","write-mit::","write-mc::","write-mid::","write-mis::","write-mic::","help"));
+    $opts = getopt("hn",array("print-dsts","print-srcs","print-ops","print-regs","print-cmds","print-mc","write-mit::","write-mc::","write-mid::","write-mis::","write-mic::","help"));
 
 
     if( count($opts) == 0 ) {
@@ -85,40 +86,58 @@ php <?php echo basename(__FILE__); ?> [options]
 	function bits( $n ) {
 		return ceil( log($n) / log(2) );;
 	}
+	function digits( $basis = 10, $n ) {
+		return ceil( log(max(1,$n)+1) / log($basis) );;
+	}
+	
+	function dechex_leadingzero( $i, $max ) {
+		return str_repeat("0",digits(16,$max)-digits(16,$i)).dechex($i);
+	}
+	
+	function print_items( $items ) {
+		global $opts;
+		if( isset( $opts["n"] ) ) {
+			$n = count($items);
+			foreach( array_keys($items) as $i  ) {
+				$items[$i] = dechex_leadingzero($i,$n).":".$items[$i];
+			}
+		}
+		echo implode( "\n", $items );
+	}
 	
     if( isset( $opts["print-dsts"] ) ) {
         $n = count( $dsts );
         $b = bits( $n );
         echo "Destination registers ($n; encodeable in $b bits)\n";
-        echo implode( "\n", $dsts );
+        print_items( $dsts );
         echo "\n\n";
     }
     if( isset( $opts["print-srcs"] ) ) {
         $n = count( $srcs );
         $b = bits( $n );
         echo "Data sources ($n; encodeable in $b bits)\n";
-        echo implode( "\n", $srcs );
+        print_items( $srcs );
         echo "\n\n";
     }
     if( isset( $opts["print-ops"] ) ) {
         $n = count( $ops );
         $b = bits( $n );
         echo "Operation mnemnonics ($n; encodeable in $b bits)\n";
-        echo implode( "\n", $ops );
+        print_items( $ops );
         echo "\n\n";
     }
     if( isset( $opts["print-regs"] ) ) {
         $n = count( $regs );
         $b = bits( $n );
         echo "Registers ($n; encodeable in $b bits)\n";
-        echo implode( "\n", $regs );
+        print_items( $regs );
         echo "\n\n";
     }
     if( isset( $opts["print-cmds"] ) ) {
         $n = count( $unique_cmds );
         $b = bits( $n );
         echo "Microcode instructions ($n; encodeable in $b bits)\n";
-		echo implode( "\n", array_keys( $unique_cmds ) );
+		print_items( array_keys( $unique_cmds ) );
         echo "\n\n";
     }
 	
@@ -126,9 +145,11 @@ php <?php echo basename(__FILE__); ?> [options]
         $n = count( $cmds );
         $b = bits( $n );
         echo "Microcode ($n; encodeable in $b bits)\n";
+		$items = array();
         foreach( $cmds as $idx => $cmd ) {
-			echo cmd2str($cmd)."\n";
+			$items[] = cmd2str($cmd);
 		}
+		print_items( $items );
         echo "\n\n";
     }
 	
