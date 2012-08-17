@@ -31,7 +31,7 @@ ALUF - R1 <- ALU Flags : 8 Bit Registernummer
 /*
 ALU Operationen:
 Einstellig:  NOT
-Zweistellig: ADD,SUB,NOT,AND,OR,XOR,SHL,SHR,CMP
+Zweistellig: ADD,SUB,AND,OR,XOR,SHL,SHR
 Bei SHL und SHR werden Nullen eingeschoben
 
 Bei ALUC wird das Ergebnis berechnet, die Flags entsprechend gesetzt, das Ergebnis dann aber verworfen. 
