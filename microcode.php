@@ -65,7 +65,7 @@ php <?php echo basename(__FILE__); ?> [options]
             $cmd = array( "dst" => $matches[2], "src" => $matches[3], "conditional" => $matches[1] );
         } else if( preg_match("#([^\s]+)\s*<-\s*(.+)\s*$#",$cell,$matches) > 0) {
             $cmd = array( "dst" => $matches[1], "src" => $matches[2] );
-        } else if( preg_match("#^\s*([A-Z]+)\s*$#",$cell,$matches) > 0 ) {
+        } else if( preg_match("#^\s*([A-Z0-9]+)\s*$#",$cell,$matches) > 0 ) {
             $ops[$matches[1]] = true;
 			$mit[$matches[1]] = count($cmds);
         }
