@@ -11,11 +11,14 @@ CC <- IR1[8-15]
 DVN <- IR2
 DVN <- R
 DVS <- R
+IR1 <- MD
 IR2 <- MD
 MA <- IR2
 MA <- PC
 MA <- R
 MIP <- 0
+MIP <- MITV
+MITO <- IR1[0..7]
 MS <- R
 PC <- 0
 PC <- PC + 1

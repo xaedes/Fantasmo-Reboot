@@ -19,6 +19,9 @@ OUT - Schreibt 16 Bit Wert von Register in Gerät welches im Parameter spezifiert
 IIN - Liest 16 Bit Wert von Gerät welches durch Inhalt des (zweiten) Registers spezifiert wird in Register: 8 Bit Registernummer, 8 Bit Registernummer
 IOUT - Schreibt 16 Bit Wert von Register in Gerät welches durch Inhalt des (zweiten) Registers spezifiert wird: 8 Bit Registernummer, 8 Bit Registernummer
 
+MOV - Schreibt 16 Bit Wert von Register im zweiten Parameter in Register im ersten Parameter: 8 Bit Registernummer, 8 Bit Registernummer
+LDPC - Lädt PC des auf den LDPC Befehl folgenden Wortes in Register: 8 Bit Registernummer
+
 <ALU Befehle> 4 Stück
 //OP = ALU Operation (8 Bit)
 //R1 = Register im zweiten Parameter (8 Bit)
@@ -89,3 +92,37 @@ MIP <- MITV
 
 
 
+Befehle:
+00:NOP
+01:EXT
+02:RESET
+03:LDC
+04:LD
+05:ST
+06:ILD
+07:IST
+08:MOV
+09:IN
+0a:OUT
+0b:IIN
+0c:IOUT
+0d:JMP
+0e:IJMP
+0f:ALU1
+10:ALU2
+11:ALUC	//CMPU & CMPS
+12:FLG
+13:LDPC
+
+ALU Befehle:
+00:ADD UNSIGNED	// ADDU
+01:SUB UNSIGNED	// SUBU
+02:ADD SIGNED   // ADDS
+03:SUB SIGNED	// SUBS
+04:NEG 
+05:NOT
+06:AND
+07:OR
+08:XOR
+09:SHL
+10:SHR
